@@ -1,4 +1,4 @@
-wordle-helper - a helper for wordle
+wordle-helper - a CLI helper for wordle
 ================================================================================
 
 A little helper for wordle.  
