@@ -54,28 +54,47 @@ function analyze(lines: ParsedLine[]): void {
 
   console.log()
   console.log(`  available letters:      ${Array.from(availableLetters).join(' ')}`)
+  console.log(`  unavailable letters:    ${Array.from(notAvailableLetters).join(' ')}`)
   console.log(`  wrong location letters: ${Array.from(wrongLocationLetters).join(' ')}`)
   console.log()
+
+  let solved = 0
+  const wlLettersLeft = new Set(wrongLocationLetters)
 
   for (const i of BOX_INDEX) {
     const box = boxes[i]
     const name = `box ${i}`
     if (isSolvedBox(box)) {
       console.log(`  ${name}: solved: ${box.char}`)
+      solved++
+      wlLettersLeft.delete(box.char!)
     } else {
       console.log(`  ${name}: not:    ${Array.from(box.notChars).join(' ')}`)
     }
   }
 
   const combos = new Set<string>()
-  generateCombos(boxes, wrongLocationLetters, combos)
+  generateCombos(boxes, wlLettersLeft, combos)
+
+  const maxEmpty = boxes.length - solved - wlLettersLeft.size
 
   console.log('')
   console.log('possibilities:')
   for (const combo of combos) {
+    if (emptySpaces(combo) > maxEmpty) continue
     console.log(`  ${combo}`)
   }
   console.log('')
+}
+
+function emptySpaces(guess: string): number {
+  let result = 0
+
+  for (const char of guess.trim().split('')) {
+    if (char === '_') result++
+  }
+  
+  return result
 }
 
 function wordFromBoxes(boxes: Box[]): string {
