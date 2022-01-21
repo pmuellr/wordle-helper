@@ -53,23 +53,22 @@ function analyze(lines: ParsedLine[]): void {
   }
 
   console.log()
-  console.log(`  available letters:      ${Array.from(availableLetters).join(' ')}`)
-  console.log(`  unavailable letters:    ${Array.from(notAvailableLetters).join(' ')}`)
-  console.log(`  wrong location letters: ${Array.from(wrongLocationLetters).join(' ')}`)
-  console.log()
+  console.log(`available letters:      ${Array.from(availableLetters).join(' ')}`)
+  console.log(`unavailable letters:    ${Array.from(notAvailableLetters).join(' ')}`)
+  console.log(`wrong location letters: ${Array.from(wrongLocationLetters).join(' ')}`)
 
   let solved = 0
   const wlLettersLeft = new Set(wrongLocationLetters)
 
+  // console.log()
   for (const i of BOX_INDEX) {
     const box = boxes[i]
-    const name = `box ${i}`
     if (isSolvedBox(box)) {
-      console.log(`  ${name}: solved: ${box.char}`)
+      // console.log(`box ${i}: solved: ${box.char}`)
       solved++
       wlLettersLeft.delete(box.char!)
     } else {
-      console.log(`  ${name}: not:    ${Array.from(box.notChars).join(' ')}`)
+      // console.log(`box ${i}: not:    ${Array.from(box.notChars).join(' ')}`)
     }
   }
 
