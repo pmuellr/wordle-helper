@@ -53,9 +53,9 @@ function analyze(lines: ParsedLine[]): void {
   }
 
   console.log()
-  console.log(`available letters:      ${Array.from(availableLetters).join(' ')}`)
-  console.log(`unavailable letters:    ${Array.from(notAvailableLetters).join(' ')}`)
-  console.log(`wrong location letters: ${Array.from(wrongLocationLetters).join(' ')}`)
+  console.log(`available letters:      ${Array.from(availableLetters).sort().join(' ')}`)
+  console.log(`unavailable letters:    ${Array.from(notAvailableLetters).sort().join(' ')}`)
+  console.log(`wrong location letters: ${Array.from(wrongLocationLetters).sort().join(' ')}`)
 
   let solved = 0
   const wlLettersLeft = new Set(wrongLocationLetters)
@@ -81,7 +81,7 @@ function analyze(lines: ParsedLine[]): void {
   console.log('possibilities:')
   for (const combo of combos) {
     if (emptySpaces(combo) > maxEmpty) continue
-    console.log(`  ${combo}`)
+    console.log(`${combo}`)
   }
   console.log('')
 }
