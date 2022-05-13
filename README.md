@@ -31,55 +31,50 @@ input:
 
     stair g--yy
     shori gg-gy
-
+    shire ggggg
+    
 output:
 
-        ----------------------------------------------------------
-        S T A I R   G - - Y Y
+    guess and response>  stair g--yy
+    ----------------------------------------------------------
+    S T A I R   G - - Y Y
 
-        available letters:      B C D E F G H I J K L M N O P Q R S U V W X Y Z
-        wrong location letters: I R
+    available letters:      B C D E F G H I J K L M N O P Q R S U V W X Y Z
+    unavailable letters:    A T
 
-        box 0: solved: S
-        box 1: not:
-        box 2: not:
-        box 3: not:    I
-        box 4: not:    R
+    possibilities:
+    SIR__
+    SI_R_
+    SRI__
+    SR__I
+    S_IR_
+    S_R_I
+    S__RI
 
-        possibilities:
-        S____
-        SI___
-        SIR__
-        SI_R_
-        SR___
-        SRI__
-        SR__I
-        S_I__
-        S_IR_
-        S_R__
-        S_R_I
-        S__R_
-        S__RI
-        S___I
+    guess and response>  shori gg-gy
+    ----------------------------------------------------------
+    S T A I R   G - - Y Y
+    S H O R I   G G - G Y
 
-        ----------------------------------------------------------
-        S T A I R   G - - Y Y
-        S H O R I   G G - G Y
+    available letters:      B C D E F G H I J K L M N P Q R S U V W X Y Z
+    unavailable letters:    A O T
 
-        available letters:      B C D E F G H I J K L M N P Q R S U V W X Y Z
-        wrong location letters: I R
+    possibilities:
+    SHIR_
 
-        box 0: solved: S
-        box 1: solved: H
-        box 2: not:
-        box 3: solved: R
-        box 4: not:    R I
+    guess and response>  shire ggggg
+    ----------------------------------------------------------
+    S T A I R   G - - Y Y
+    S H O R I   G G - G Y
+    S H I R E   G G G G G
 
-        possibilities:
-        SH_R_
-        SHIR_
-        SHRR_
+    available letters:      B C D E F G H I J K L M N P Q R S U V W X Y Z
+    unavailable letters:    A O T
 
+    possibilities:
+    SHIRE
+
+    complete in 0:47
 
 installation
 ================================================================================

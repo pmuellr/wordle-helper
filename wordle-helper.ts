@@ -55,7 +55,7 @@ function analyze(lines: ParsedLine[]): void {
   console.log()
   console.log(`available letters:      ${Array.from(availableLetters).sort().join(' ')}`)
   console.log(`unavailable letters:    ${Array.from(notAvailableLetters).sort().join(' ')}`)
-  console.log(`wrong location letters: ${Array.from(wrongLocationLetters).sort().join(' ')}`)
+  // console.log(`wrong location letters: ${Array.from(wrongLocationLetters).sort().join(' ')}`)
 
   let solved = 0
   const wlLettersLeft = new Set(wrongLocationLetters)
@@ -132,7 +132,7 @@ function printLine(line: ParsedLine) {
   console.log(`${line.guess.join(' ')}   ${line.response.join(' ')}`)
 }
 
-function onInput(line: string): void {
+function processLine(line: string): undefined | { guess: string, response: string } {
   const parsed = parseLine(line.trim().toUpperCase())
   if (!parsed) return
 
@@ -140,6 +140,8 @@ function onInput(line: string): void {
 
   Lines.push({ guess, response })
   analyze(Lines)
+
+  return { guess: guess.join(''), response: response.join('') }
 }
 
 interface ParsedLine { guess: string[]; response: string[] }
@@ -198,7 +200,9 @@ function parseResponse(chars: string[]): string[] {
   return chars
 }
 
-async function startCLI() {
+async function main() {
+  const dateStart = Date.now()
+
   // read from file, if file name passed in
   const [ fileName ] = Deno.args
   if (fileName) {
@@ -206,18 +210,27 @@ async function startCLI() {
     const lines = data.split('\n')
     for (const line of lines) { 
       if (!line) continue
-      onInput(line)
+      processLine(line)
     }
     return
   }
 
   // read from console
-  while (true) {
+  let response: string | undefined
+
+  while (response !== 'GGGGG') {
     const line = prompt('guess and response> ')
     if (!line) continue
 
-    onInput(line)
+    const input = processLine(line)
+    response = input?.response
   }
+
+  const seconds = Math.round((Date.now() - dateStart) / 1000)
+  const min = Math.floor(seconds / 60)
+  const sec = `${seconds % 60}`.padStart(2, '0')
+
+  console.log(`complete in ${min}:${sec}`)
 }
 
-startCLI()
+main()
