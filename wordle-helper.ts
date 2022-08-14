@@ -6,7 +6,7 @@ function cloneBox(box: Box): Box { return { notChars: new Set(box.notChars), cha
 function isSolvedBox(box: Box): boolean { return box.char !== undefined }
 
 const BOX_INDEX = [ 0, 1, 2, 3, 4]
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase()
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 if (ALPHABET.length != 26) console.log(`woops, ALPHABET ain't right!`)
 
 interface ParsedLine { guess: string[]; response: string[] }
@@ -53,8 +53,8 @@ function analyze(lines: ParsedLine[]): void {
   }
 
   console.log()
-  console.log(`available letters:      ${Array.from(availableLetters).sort().join(' ')}`)
-  console.log(`unavailable letters:    ${Array.from(notAvailableLetters).sort().join(' ')}`)
+  console.log(`available:   ${Array.from(availableLetters).sort().join(' ')}`)
+  console.log(`unavailable: ${Array.from(notAvailableLetters).sort().join(' ')}`)
   // console.log(`wrong location letters: ${Array.from(wrongLocationLetters).sort().join(' ')}`)
 
   let solved = 0
@@ -129,11 +129,11 @@ function generateCombos(boxes: Box[], wlLetters: Set<string>, combos: Set<string
 }
 
 function printLine(line: ParsedLine) {
-  console.log(`${line.guess.join(' ')}   ${line.response.join(' ')}`)
+  console.log(`${line.guess.join('')}   ${line.response.join('')}`)
 }
 
 function processLine(line: string): undefined | { guess: string, response: string } {
-  const parsed = parseLine(line.trim().toUpperCase())
+  const parsed = parseLine(line.trim().toLowerCase())
   if (!parsed) return
 
   const { guess, response } = parsed
@@ -169,8 +169,8 @@ function parseLine(line: string): undefined | ParsedLine {
   return { guess, response }
 }
 
-const CHARCODE_A = 'A'.charCodeAt(0)
-const CHARCODE_Z = 'Z'.charCodeAt(0)
+const CHARCODE_A = 'a'.charCodeAt(0)
+const CHARCODE_Z = 'z'.charCodeAt(0)
 
 function parseGuess(chars: string[]): string[] {
   for (const char of chars) {
@@ -185,8 +185,8 @@ function parseGuess(chars: string[]): string[] {
 }
 
 const R_NO = '-'
-const R_GR = 'G'
-const R_YE = 'Y'
+const R_GR = 'g'
+const R_YE = 'y'
 
 const RESPONSE_SET = new Set([R_NO, R_GR, R_YE])
 
@@ -218,7 +218,7 @@ async function main() {
   // read from console
   let response: string | undefined
 
-  while (response !== 'GGGGG') {
+  while (response !== 'ggggg') {
     const line = prompt('guess and response> ')
     if (!line) continue
 
