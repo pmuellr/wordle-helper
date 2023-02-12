@@ -11,15 +11,21 @@ if (ALPHABET.length != 26) console.log(`woops, ALPHABET ain't right!`)
 
 interface ParsedLine { guess: string[]; response: string[] }
 const Lines: ParsedLine[] = []
+const Today = new Date().toISOString().slice(0,10)
 
 function analyze(lines: ParsedLine[]): void {
   console.log('----------------------------------------------------------')
+  console.log(Today)
+  console.log()
+
   const wrongLocationLetters: Set<string> = new Set()
   const availableLetters                  = new Set(ALPHABET.split(''))
   const notAvailableLetters: Set<string>  = new Set()
   const boxes: Box[] = BOX_INDEX.map(() => { return { notChars: new Set<string>() } })
   
+  let lastLine: ParsedLine | undefined
   for (const line of lines) {
+    lastLine = line
     printLine(line)
 
     const { guess, response } = line
@@ -84,6 +90,13 @@ function analyze(lines: ParsedLine[]): void {
     console.log(`${combo}`)
   }
   console.log('')
+
+  if (lastLine?.response.join('') !== 'ggggg') {
+    for (const ch of Array.from(availableLetters).sort()) {
+      console.log(ch)
+    }
+    console.log('')
+  }
 }
 
 function emptySpaces(guess: string): number {
@@ -230,7 +243,7 @@ async function main() {
   const min = Math.floor(seconds / 60)
   const sec = `${seconds % 60}`.padStart(2, '0')
 
-  console.log(`complete in ${min}:${sec}`)
+  console.log(`complete in ${min}:${sec} on ${new Date().toString()}`)
 }
 
 main()
